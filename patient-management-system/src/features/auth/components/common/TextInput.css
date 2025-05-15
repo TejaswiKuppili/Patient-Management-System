@@ -1,0 +1,31 @@
+@import '../../styles/variables.css';
+
+.input-group {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.input-field {
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: var(--color-accent);
+}
+
+.input-error {
+    color: var(--color-error);
+    font-size: 13px;
+    margin-top: 4px;
+}
