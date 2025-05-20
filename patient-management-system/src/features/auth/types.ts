@@ -20,3 +20,8 @@ export interface User {
   email: string;
   role: string;
 }
+
+export interface UsersWithRoles {
+  users: User[];
+  roles: string[];
+}

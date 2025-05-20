@@ -1,11 +1,11 @@
 import { Link, Outlet, Routes, Route } from 'react-router-dom';
-import AssignRoles from '../../pages/AssignRoles/AssignRoles';
-import Patients from '../../pages/Patients/Patients';
-import Appointments from '../../pages/Appointments/Appointments';
-import MedicalRecords from '../../pages/MedicalRecords/MedicalRecords';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import './Dashboard.css';
+import AssignRoles from '../AssignRoles/AssignRoles';
+import Patients from '../Patients/Patients';
+import Appointments from '../Appointments/Appointments';
+import MedicalRecords from '../MedicalRecords/MedicalRecords';
 
 export const Dashboard = () => {
   return (

@@ -27,7 +27,6 @@ export const Register = () => {
             await registerUser(values);
             alert('Registration successful');
             navigate('/login');
-            // Redirect to login page or perform any other action
         }
         catch(error: any){
             setServerError(error?.response?.data?.message || 'Something went wrong');

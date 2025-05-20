@@ -1,19 +1,16 @@
-import axios from "axios";
-import { RegisterRequest, AuthResponse, LoginRequest } from "../types";
+import apiClient from "./apiClient";
+import { RegisterRequest, LoginRequest, AuthResponse } from "../types";
 
-const API_URL = "http://localhost:8080/api/v1/auth"; //Have to change this to the backend URL
-
-// Function to handle user register
+// API call to register a new user
 export const register = async (
   data: RegisterRequest
 ): Promise<AuthResponse> => {
-  const response = await axios.post<AuthResponse>(`${API_URL}/register`, data);
-  //   localStorage.setItem("token", response.token);
+  const response = await apiClient.post<AuthResponse>("/register", data);
   return response.data;
 };
 
-// Function to handle user login
+// API call to login a user
 export const login = async (data: LoginRequest): Promise<AuthResponse> => {
-  const response = await axios.post<AuthResponse>(`${API_URL}/login`, data);
+  const response = await apiClient.post<AuthResponse>("/login", data);
   return response.data;
 };
