@@ -3,8 +3,13 @@ import { UsersWithRoles } from "../types";
 
 //API call to fetch users with roles
 export const fetchUsersWithRoles = async (): Promise<UsersWithRoles> => {
-  const response = await apiClient.get<UsersWithRoles>("/api/users/with-roles");
-  return response.data;
+  const response = await apiClient.get<{
+    success: boolean;
+    message: string | null;
+    data: UsersWithRoles;
+    statusCode: number;
+  }>("/api/users/roles");
+  return response.data.data;
 };
 
 //API call to add a new user
@@ -18,8 +23,6 @@ export const addUser = async (user: {
     Email: user.email,
     RoleName: user.role,
   };
-  console.log("Adding user:", user);
-  console.log("Adding user:", payload);
   const response = await apiClient.post("/api/users", payload);
   return response.data;
 };
