@@ -33,3 +33,42 @@
     border-radius: 4px;
     color: #3c763d;
 }
+
+.add-user-btn {
+    margin: 10px 0;
+    padding: 8px 16px;
+    background-color: #00b3b3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add-user-btn:hover {
+    background-color: #009e9e;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-form input,
+.modal-form select {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #007C7B;
+}
+
+.modal-form button {
+    padding: 8px 16px;
+    background-color: #00b3b3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.modal-form button:hover {
+    background-color: #009e9e;
+}
