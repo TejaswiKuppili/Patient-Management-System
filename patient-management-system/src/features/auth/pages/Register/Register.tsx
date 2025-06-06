@@ -8,6 +8,7 @@ import './Register.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHospitalSymbol } from '@fortawesome/free-solid-svg-icons';
 
+// Validation schema for the registration form
 const RegisterSchema = Yup.object().shape({
     name: Yup.string().required('Username is required'),
     email: Yup.string().email('Invalid email').required('Email is required'),
@@ -15,6 +16,7 @@ const RegisterSchema = Yup.object().shape({
     confirmPassword: Yup.string().oneOf([Yup.ref('password')], "Passwords do not match").required('Confirm Password is required')
 });
 
+// This component handles user registration functionality
 export const Register = () => {
     const navigate = useNavigate();
     const[serverError, setServerError] = useState('');

@@ -13,24 +13,24 @@ email: Yup.string().email('Invalid email').required('Email is required'),
 password: Yup.string().required('Password is required'),
 });
 
+// This component handles user login functionality
 export const Login = () => {
-const [serverError, setServerError] = useState('');
-const [loading, setLoading] = useState(false);
-const navigate = useNavigate();
+    const [serverError, setServerError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
-const handleSubmit = async (values: LoginRequest) => {
-setLoading(true);
-setServerError('');
-try {
-await loginUser(values);
-alert('Login successful');
-navigate('/dashboard');
-} catch (error: any) {
-setServerError(error?.response?.data?.message || 'Something went wrong');
-navigate('/dashboard/assign-roles');
-} finally {
-setLoading(false);
-}
+    const handleSubmit = async (values: LoginRequest) => {
+        setLoading(true);
+        setServerError('');
+        try {
+        await loginUser(values);
+        alert('Login successful')
+        navigate('/dashboard/assign-roles');
+        } catch (error: any) {
+        setServerError(error?.response?.data?.message || 'Something went wrong');
+        } finally {
+        setLoading(false);
+    }
 };
 
 return (
@@ -76,4 +76,4 @@ return (
         </Formik>
     </div>
 );
-};
+}

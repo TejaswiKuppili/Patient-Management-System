@@ -1,28 +1,44 @@
 .assign-roles-container {
-    max-width: 900px;
+    max-width: 80%;
     margin: auto;
     margin-top: 30px;
     background-color: #ffffffcc;
     padding: 20px;
     border-radius: 10px;
     backdrop-filter: blur(5px);
+    height: 50%;
 }
 
-.roles-table {
+.users-table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 
-.roles-table th,
-.roles-table td {
+.users-table th,
+.users-table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
 }
 
-.roles-table th {
+.users-table th {
     background-color: #007C7B;
     color: white;
+}
+
+.users-table-scroll-wrapper {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.users-table-scroll-wrapper thead th {
+    position: sticky;
+    top: 0;
+}
+
+.users-table-scroll-wrapper.modal-open thead th {
+    position: static;
 }
 
 .info-message {
@@ -37,7 +53,7 @@
 .add-user-btn {
     margin: 10px 0;
     padding: 8px 16px;
-    background-color: #00b3b3;
+    background-color: #009e9e;
     color: white;
     border: none;
     border-radius: 4px;
@@ -45,13 +61,13 @@
 }
 
 .add-user-btn:hover {
-    background-color: #009e9e;
+    background-color: #00b3b3;
 }
 
 .modal-form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 30px;
 }
 
 .modal-form input,
@@ -63,12 +79,18 @@
 
 .modal-form button {
     padding: 8px 16px;
-    background-color: #00b3b3;
+    background-color: #009e9e;
     color: white;
     border: none;
     border-radius: 4px;
 }
 
 .modal-form button:hover {
-    background-color: #009e9e;
+    background-color: #00b3b3;
+}
+
+.error-message {
+    color: red;
+    padding: 8px;
+    margin-bottom: 12px;
 }

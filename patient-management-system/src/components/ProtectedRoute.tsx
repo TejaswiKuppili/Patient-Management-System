@@ -1,11 +1,12 @@
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../features/hooks/useAuth';
-import { JSX } from 'react';
+import { JSX } from "react";
+import { useAuth } from "../features/hooks/useAuth";
+import { Navigate } from "react-router-dom";
 
+// This component is a wrapper that protects routes by checking if the user is logged in.
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-  const { token } = useAuth();
+  const { isLoggedIn } = useAuth();
 
-  if (!token) {
+  if (!isLoggedIn) {
     return <Navigate to="/login" />;
   }
 

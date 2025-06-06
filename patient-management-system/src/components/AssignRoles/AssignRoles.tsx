@@ -1,24 +1,44 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { addUser, updateUserRole } from '../../features/auth/api/userApi';
 import './AssignRoles.css';
 import useUsers from '../../features/hooks/useUsers';
 import Modal from '../common/Modal/Modal';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../../features/hooks/useAuth';
 
+// This component allows an admin to assign roles to users, add new users, and update existing user roles.
 const AssignRoles = () => {
   const { users, roles, loading, error, refetch } = useUsers();
   const [updatedRoles, setUpdatedRoles] = useState<Record<string, string>>({});
   const [message, setMessage] = useState('');
   const[newUser, setNewUser] = useState({ name: '', email: '', role: roles[0] || '' });
   const[showAddUserForm, setShowAddUserForm] = useState(false);
-  
-  // if (role !== 'Admin') {
-  //   return <Navigate to="/unauthorized" />;
-  // }
 
+  // This effect clears the message after 3 seconds.
+    useEffect(() => {
+      if (message) {
+        const timer = setTimeout(() => setMessage(''), 3000);
+        return () => clearTimeout(timer);
+      }
+    }, [message]);
+  
+  // Replace this with your actual way of getting the current user's role.
+  // For example, if you have a useAuth hook:
+  // const { user } = useAuth();
+  // const currentRole = user?.role; 
+  // console.log(currentRole);
+
+  const currentRole = localStorage.getItem('Role');
+
+  if (currentRole !== 'Admin') {
+    return <Navigate to="/unauthorized" />;
+  }
+
+  // This function validates the new user data, calls the API to add the user, and updates the UI accordingly.
   const handleAddUser = async () => {
     try {
-      if (!newUser.role) {
-        setMessage("Please select a role.");
+      if (!newUser.name || !newUser.email || !newUser.role) {
+        setMessage("Please fill in all fields.");
         return;
       }
       await addUser(newUser);
@@ -26,12 +46,13 @@ const AssignRoles = () => {
       setMessage(`User ${newUser.name} added successfully`);
       setNewUser({ name: '', email: '', role: roles[0] || '' });
       setShowAddUserForm(false);
-    } 
+    }
     catch {
       setMessage('Failed to add user.');
     }
   };
 
+  // This function updates the state with the new role for the specified user.
   const handleRoleChange = (userId: number, newRole: string) => {
     setUpdatedRoles(prev => ({ ...prev, [userId]: newRole }));
   };
@@ -56,13 +77,15 @@ const AssignRoles = () => {
     <div className="assign-roles-container">
       <h2>Assign Roles</h2>
       {message && <div className="info-message">{message}</div>}
+      {error && <div className="error-message">{error}</div>}
 
       <button className="add-user-btn" onClick={() => setShowAddUserForm(true)}>Add User</button>
 
       {loading ? (
         <div>Loading users...</div>
       ) : (
-        <table className="roles-table">
+        <div className={`users-table-scroll-wrapper ${showAddUserForm ? 'modal-open' : ''}`}>
+        <table className="users-table">
           <thead>
             <tr>
               <th>Name</th>
@@ -97,11 +120,12 @@ const AssignRoles = () => {
             ))}
           </tbody>
         </table>
+        </div>
       )}
-
       {showAddUserForm && (
-        <Modal onClose={() => setShowAddUserForm(false)}>
+        <Modal onClose={() => setShowAddUserForm(false)}>        
           <h3>Add New User</h3>
+          {error && <div className="error-message">{error}</div>}
           <div className="modal-form">
             <input
               type="text"
@@ -119,7 +143,7 @@ const AssignRoles = () => {
               value={newUser.role}
               onChange={e => setNewUser(prev => ({ ...prev, role: e.target.value }))}
             >
-              <option value="" disabled>-- Select Role --</option>
+              <option value="" disabled>Select Role</option>
               {roles.map(roleOption => (
                 <option key={roleOption} value={roleOption}>
                   {roleOption}

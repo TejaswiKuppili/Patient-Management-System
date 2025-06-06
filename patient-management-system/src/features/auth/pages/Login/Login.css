@@ -56,13 +56,13 @@ label {
 }
 
 .error-message {
-    color: #d9534f;
+    color: red !important;
     font-size: 0.9rem;
     margin-top: 0.3rem;
 }
 
 .server-error {
-    color: #a94442;
+    color: red;
     background-color: #f2dede;
     border: 1px solid #ebccd1;
     padding: 0.8rem;

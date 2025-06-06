@@ -32,8 +32,9 @@ export const updateUserRole = async (
   userId: number,
   newRole: string
 ): Promise<void> => {
-  console.log("Updating user role:", userId, newRole);
-  await apiClient.put(`/api/users/with-roles/${userId}/role`, {
+  console.log("Updating user role:", { role: newRole });
+  const response = await apiClient.put(`/api/users/roles/${userId}/role`, {
     role: newRole,
   });
+  return response.data;
 };

@@ -1,9 +1,15 @@
 import './Modal.css';
 
-const Modal = ({ children, onClose }: { children: React.ReactNode; onClose: () => void }) => {
+interface ModalProps {
+  children: React.ReactNode;
+  onClose: () => void;
+  className?: string; // Optional className prop
+}
+
+const Modal = ({ children, onClose, className = ''}: ModalProps) => {
   return (
     <div className="modal-overlay">
-      <div className="modal-box">
+      <div className={`modal-box ${className}`}>
         <button className="close-button" onClick={onClose}>×</button>
         {children}
       </div>

@@ -36,3 +36,24 @@
 .dashboard-tabs a:hover {
     text-decoration: underline;
 }
+
+.dashboard-header {
+    padding: 1rem;
+    background-color: #f6f6f6;
+    font-size: 1.25rem;
+    font-weight: 500;
+    border-bottom: 1px solid #ddd;
+}
+
+.logout-btn{
+    padding: 8px 16px;
+    background-color: #009e9e;
+    color: white !important;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    /* background-color: #00b3b3; */
+}

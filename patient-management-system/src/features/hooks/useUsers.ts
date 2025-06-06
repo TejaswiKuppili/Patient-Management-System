@@ -1,15 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { fetchUsersWithRoles } from "../auth/api/userApi";
-import { User } from "../auth/types";
+import { User, UsersWithRoles } from "../auth/types";
 
-interface UsersWithRolesState {
-  users: User[];
-  roles: string[];
-  loading: boolean;
-  error: string | null;
-  refetch: () => Promise<void>;
-}
-const useUsers = (): UsersWithRolesState => {
+// This hook fetches users and their roles from the API and manages the state of users, roles, loading status, and errors.
+const useUsers = (): UsersWithRoles => {
   const [users, setUsers] = useState<User[]>([]);
   const [roles, setRoles] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
@@ -23,7 +17,7 @@ const useUsers = (): UsersWithRolesState => {
         id: user.id,
         name: user.name,
         email: user.email,
-        role: user.roleName, // map roleName to role
+        role: user.roleName,
       }));
       setUsers(users);
       setRoles(data.roles);
