@@ -3,11 +3,13 @@ import './Patients.css';
 import Modal from '../common/Modal/Modal';
 import usePatients from './usePatientsHook';
 import { Patient, Vitals } from './patientTypes';
-import { formatDateToCustom, getLocalISODateTime } from '../../utils/dateUtils';
+import { getLocalISODateTime } from '../../utils/dateUtils';
 import { addPatient, addVitals, fetchVitalsByPatientId } from './patientApi';
+import { useDateFormatter } from '@react-aria/i18n';
 
 // This component displays a list of patients, allows adding vitals for each patient, and handles the UI interactions.
 const Patients = () => {
+  const formatter = useDateFormatter({ dateStyle: "long" });
   const { patients, loading, error, refetch } = usePatients();
   const [message, setMessage] = useState('');
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
@@ -171,7 +173,7 @@ const Patients = () => {
             {patients.map((patient: Patient) => (
               <tr key={patient.id}>
                 <td>{`${patient.firstName} ${patient.lastName}` }</td>
-                <td>{formatDateToCustom(patient.dateOfBirth)}</td>
+                <td>{formatter.format(new Date(patient.dateOfBirth))}</td>
                 <td>{patient.gender}</td>
                 <td>{patient.contactNumber}</td>
                 <td>{patient.address}</td>
