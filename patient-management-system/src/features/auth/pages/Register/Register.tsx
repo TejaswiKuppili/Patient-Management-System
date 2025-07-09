@@ -7,6 +7,9 @@ import {useState} from 'react';
 import './Register.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHospitalSymbol } from '@fortawesome/free-solid-svg-icons';
+import { CustomButton, CustomContainer, CustomTextField } from '../../../../components/common/Custom';
+import { Alert, Box, Typography } from '@mui/material';
+import { PasswordField } from '../../../../components/common/Custom/PasswordField';
 
 // Validation schema for the registration form
 const RegisterSchema = Yup.object().shape({
@@ -41,45 +44,96 @@ export const Register = () => {
     };
 
     return(
-        <div className="register-container">
-            <div className="logo-container">
+        <CustomContainer>
+            <Box textAlign="center">
                 <FontAwesomeIcon icon={faHospitalSymbol} size="2x" color="#007C7B" />
-                <h1 className="form-title">C9 SmartCare</h1>
-            </div>
-            <h2 className="form-title">Register</h2>
-            <Formik initialValues={{name: '', email: '', password: '', confirmPassword: ''}}
+                <Typography variant="h5" component="h1" mt={1}
+                sx = {{ fontWeight: 'bold', color: '#007b83' }}>
+                    C9 SmartCare
+                </Typography>
+                <Typography variant="h6" mt={2} mb={3}
+                sx = {{ fontWeight: 'bold', color: '#007b83' }}>
+                    Register
+                </Typography>
+            </Box>
+
+            <Formik
+                initialValues = {{ name: '', email: '', password: '', confirmPassword: ''}}
                 validationSchema={RegisterSchema}
-                onSubmit={handleSubmit}>
-                {({isSubmitting}) => (
-                    <Form className="form">
-                        <div className="form-group">
-                            <label htmlFor="name">Name</label>
-                            <Field type="text" name="name" className="form-input" />
-                            <ErrorMessage name="name" component="div" className="error-message" />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="email">Email</label>
-                            <Field type="email" name="email" className="form-input" />
-                            <ErrorMessage name="email" component="div" className="error-message" />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="password">Password</label>
-                            <Field type="password" name="password" className="form-input" />
-                            <ErrorMessage name="password" component="div" className="error-message" />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="confirmPassword">Confirm Password</label>
-                            <Field type="password" name="confirmPassword" className="form-input" />
-                            <ErrorMessage name="confirmPassword" component="div" className="error-message" />
-                        </div>
-                        {serverError && <div className="server-error">{serverError}</div>}
-                        <button type="submit" className="submit-button" disabled={isSubmitting || loading}>
-                            {loading ? 'Registering...' : 'Register'}
-                        </button>
-                        <div className="form-footer"> Already have an account?{' '} <Link to="/login" className="link"> Login </Link> </div>
-                    </Form>
-                )}
+                onSubmit={handleSubmit}
+            >
+                {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => (
+          <Form>
+            <CustomTextField
+              id="name"
+              name="name"
+              label="Name"
+              value={values.name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.name && Boolean(errors.name)}
+              helperText={touched.name && errors.name}
+            />
+
+            <CustomTextField
+              id="email"
+              name="email"
+              label="Email"
+              type="email"
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.email && Boolean(errors.email)}
+              helperText={touched.email && errors.email}
+            />
+
+            <PasswordField
+              id="password"
+              name="password"
+              label="Password"
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.password && Boolean(errors.password)}
+              helperText={touched.password && errors.password}
+            />
+
+            <PasswordField
+              id="confirmPassword"
+              name="confirmPassword"
+              label="Confirm Password"
+              value={values.confirmPassword}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.confirmPassword && Boolean(errors.confirmPassword)}
+              helperText={touched.confirmPassword && errors.confirmPassword}
+            />
+
+            {serverError && (
+              <Alert severity="error" sx={{ mt: 2 }}>
+                {serverError}
+              </Alert>
+            )}
+
+            <CustomButton
+              type="submit"
+              loading={loading}
+              sx={{ mt: 3 }}
+            >
+              Register
+            </CustomButton>
+
+            <Box mt={2} textAlign="center">
+              <Typography variant="body2">
+                Already have an account?{' '}
+                <Link to="/login" style={{ color: '#007C7B' }}>
+                  Login
+                </Link>
+              </Typography>
+            </Box>
+          </Form>
+        )}
             </Formik>
-        </div>
+        </CustomContainer>
     );
 }

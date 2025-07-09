@@ -11,7 +11,7 @@
 
 .form-title {
     text-align: center;
-    color: #007b83;
+    color: #007b83 !important;
     margin-bottom: 1.5rem;
     font-size: 1.8rem;
 }
